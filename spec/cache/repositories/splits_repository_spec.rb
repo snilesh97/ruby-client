@@ -35,6 +35,16 @@ describe SplitIoClient::Cache::Repositories::SplitsRepository do
       )
     end
 
+    after do
+      repository.remove_split(name: 'foo', trafficTypeName: 'tt_name_1')
+      repository.remove_split(name: 'bar', trafficTypeName: 'tt_name_2')
+      repository.remove_split(name: 'bar', trafficTypeName: 'tt_name_2')
+      repository.remove_split(name: 'qux', trafficTypeName: 'tt_name_3')
+      repository.remove_split(name: 'quux', trafficTypeName: 'tt_name_4')
+      repository.remove_split(name: 'corge', trafficTypeName: 'tt_name_5')
+      repository.remove_split(name: 'corge', trafficTypeName: 'tt_name_6')
+    end
+
     it 'returns splits names' do
       expect(Set.new(repository.split_names)).to eq(Set.new(%w[foo bar baz]))
     end
@@ -85,9 +95,6 @@ describe SplitIoClient::Cache::Repositories::SplitsRepository do
 
       expect(repository.traffic_type_exists('tt_name_5')).to be false
       expect(repository.traffic_type_exists('tt_name_6')).to be true
-
-      # cleanup
-      repository.remove_split(split)
     end
 
     it 'returns splits data' do
@@ -99,10 +106,10 @@ describe SplitIoClient::Cache::Repositories::SplitsRepository do
     end
   end
 
-  include_examples 'SplitsRepository specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+  it_behaves_like 'SplitsRepository specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
     SplitIoClient::Cache::Adapters::MemoryAdapters::MapAdapter.new
   )
-  include_examples 'SplitsRepository specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'SplitsRepository specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     'redis://127.0.0.1:6379/0'
   )
 end

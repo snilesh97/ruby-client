@@ -29,10 +29,10 @@ describe SplitIoClient::Cache::Senders::MetricsSender do
     end
   end
 
-  include_examples 'metrics sender specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+  it_behaves_like 'metrics sender specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
     SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(3)
   )
-  include_examples 'metrics sender specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'metrics sender specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     SplitIoClient::SplitConfig.new.redis_url
   )
 end

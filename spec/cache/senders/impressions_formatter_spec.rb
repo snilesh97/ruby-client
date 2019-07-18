@@ -99,10 +99,10 @@ describe SplitIoClient::Cache::Senders::ImpressionsFormatter do
     end
   end
 
-  include_examples 'impressions formatter specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+  it_behaves_like 'impressions formatter specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
     SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(3)
   )
-  include_examples 'impressions formatter specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'impressions formatter specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     SplitIoClient::SplitConfig.new.redis_url
   )
 end

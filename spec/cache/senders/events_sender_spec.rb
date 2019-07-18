@@ -25,10 +25,10 @@ describe SplitIoClient::Cache::Senders::EventsSender do
     end
   end
 
-  include_examples 'events sender specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+  it_behaves_like 'events sender specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
     SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(3)
   )
-  include_examples 'events sender specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'events sender specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     SplitIoClient::SplitConfig.default_redis_url
   )
 end

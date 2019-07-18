@@ -38,10 +38,10 @@ describe SplitIoClient::Cache::Stores::SDKBlocker do
     end
   end
 
-  include_examples 'sdk_blocker specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
-    SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(3)
+  it_behaves_like 'sdk_blocker specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+    SplitIoClient::Cache::Adapters::MemoryAdapters::MapAdapter.new
   )
-  include_examples 'sdk_blocker specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'sdk_blocker specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     SplitIoClient::SplitConfig.new.redis_url
   )
 end

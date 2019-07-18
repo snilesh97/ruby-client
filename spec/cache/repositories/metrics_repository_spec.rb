@@ -19,7 +19,7 @@ describe SplitIoClient::Cache::Repositories::MetricsRepository do
     end
   end
 
-  include_examples 'metrics specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'metrics specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     SplitIoClient::SplitConfig.default_redis_url
   )
 end

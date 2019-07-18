@@ -94,12 +94,12 @@ describe SplitIoClient::Cache::Repositories::ImpressionsRepository do
     end
   end
 
-  include_examples 'impressions specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+  it_behaves_like 'impressions specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
     SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(
       SplitIoClient::SplitConfig.default_impressions_queue_size
     )
   )
-  include_examples 'impressions specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+  it_behaves_like 'impressions specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
     SplitIoClient::SplitConfig.default_redis_url
   )
 

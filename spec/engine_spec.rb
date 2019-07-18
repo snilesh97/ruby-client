@@ -985,11 +985,11 @@ describe SplitIoClient, type: :client do
 end
 
 describe SplitIoClient do
-  include_examples 'engine specs', :memory
+  it_behaves_like 'engine specs', :memory
 end
 
 describe SplitIoClient do
-  include_examples 'engine specs', :redis
+  it_behaves_like 'engine specs', :redis
 end
 
 private
