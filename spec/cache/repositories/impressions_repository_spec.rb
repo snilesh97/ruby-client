@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'set'
 
 describe SplitIoClient::Cache::Repositories::ImpressionsRepository do
-  RSpec.shared_examples 'impressions specs' do |cache_adapter|
+  RSpec.shared_examples 'Impressions Repository' do |cache_adapter|
     let(:adapter) { cache_adapter }
     let(:config) do
       SplitIoClient::SplitConfig.new(
@@ -94,14 +94,19 @@ describe SplitIoClient::Cache::Repositories::ImpressionsRepository do
     end
   end
 
-  it_behaves_like 'impressions specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
-    SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(
-      SplitIoClient::SplitConfig.default_impressions_queue_size
+  describe 'with Memory Adapter' do
+    it_behaves_like 'Impressions Repository', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+      SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(
+        SplitIoClient::SplitConfig.default_impressions_queue_size
+      )
     )
-  )
-  it_behaves_like 'impressions specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
-    SplitIoClient::SplitConfig.default_redis_url
-  )
+  end
+
+  describe 'with Redis Adapter' do
+    it_behaves_like 'Impressions Repository', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+      SplitIoClient::SplitConfig.default_redis_url
+    )
+  end
 
   context 'redis adapter' do
     before do

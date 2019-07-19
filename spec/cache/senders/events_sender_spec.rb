@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe SplitIoClient::Cache::Senders::EventsSender do
-  RSpec.shared_examples 'events sender specs' do |cache_adapter|
+  RSpec.shared_examples 'Events Sender' do |cache_adapter|
     let(:repository) { SplitIoClient::Cache::Repositories::EventsRepository.new(@default_config, nil) }
     let(:sender) { described_class.new(repository, @default_config) }
 
@@ -25,10 +25,15 @@ describe SplitIoClient::Cache::Senders::EventsSender do
     end
   end
 
-  it_behaves_like 'events sender specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
-    SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(3)
-  )
-  it_behaves_like 'events sender specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
-    SplitIoClient::SplitConfig.default_redis_url
-  )
+  describe 'with Memory Adapter' do
+    it_behaves_like 'Events Sender', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+      SplitIoClient::Cache::Adapters::MemoryAdapters::QueueAdapter.new(3)
+    )
+  end
+
+  describe 'with Redis Adapter' do
+    it_behaves_like 'Events Sender', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+      SplitIoClient::SplitConfig.default_redis_url
+    )
+  end
 end

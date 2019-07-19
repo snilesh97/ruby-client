@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe SplitIoClient::Cache::Stores::SDKBlocker do
-  RSpec.shared_examples 'sdk_blocker specs' do |cache_adapter|
+  RSpec.shared_examples 'SDK Blocker' do |cache_adapter|
     let(:config) do
       config = SplitIoClient::SplitConfig.new
       config.cache_adapter = cache_adapter
@@ -38,10 +38,15 @@ describe SplitIoClient::Cache::Stores::SDKBlocker do
     end
   end
 
-  it_behaves_like 'sdk_blocker specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
-    SplitIoClient::Cache::Adapters::MemoryAdapters::MapAdapter.new
-  )
-  it_behaves_like 'sdk_blocker specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
-    SplitIoClient::SplitConfig.new.redis_url
-  )
+  describe 'with Memory Adapter' do
+    it_behaves_like 'SDK Blocker', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+      SplitIoClient::Cache::Adapters::MemoryAdapters::MapAdapter.new
+    )
+  end
+
+  describe 'with Redis Adapter' do
+    it_behaves_like 'SDK Blocker', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+      SplitIoClient::SplitConfig.new.redis_url
+    )
+  end
 end

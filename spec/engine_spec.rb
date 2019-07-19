@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'securerandom'
 
 describe SplitIoClient, type: :client do
-  RSpec.shared_examples 'engine specs' do |cache_adapter|
+  RSpec.shared_examples 'SplitIoClient' do |cache_adapter|
     subject do
       SplitIoClient::SplitFactory.new('test_api_key',
                                       logger: Logger.new(log),
@@ -984,12 +984,12 @@ describe SplitIoClient, type: :client do
   end
 end
 
-describe SplitIoClient do
-  it_behaves_like 'engine specs', :memory
+describe 'with Memory Adapter' do
+  it_behaves_like 'SplitIoClient', :memory
 end
 
-describe SplitIoClient do
-  it_behaves_like 'engine specs', :redis
+describe 'with Redis Adapter' do
+  it_behaves_like 'SplitIoClient', :redis
 end
 
 private

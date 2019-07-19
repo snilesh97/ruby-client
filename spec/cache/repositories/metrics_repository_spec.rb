@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe SplitIoClient::Cache::Repositories::MetricsRepository do
-  RSpec.shared_examples 'metrics specs' do |cache_adapter|
+  RSpec.shared_examples 'Metrics Repository' do |cache_adapter|
     let(:repository) { described_class.new(@default_config) }
     let(:binary_search) { SplitIoClient::BinarySearchLatencyTracker.new }
 
@@ -19,7 +19,9 @@ describe SplitIoClient::Cache::Repositories::MetricsRepository do
     end
   end
 
-  it_behaves_like 'metrics specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
-    SplitIoClient::SplitConfig.default_redis_url
-  )
+  describe 'with Redis Adapter' do
+    it_behaves_like 'Metrics Repository', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+      SplitIoClient::SplitConfig.default_redis_url
+    )
+  end
 end

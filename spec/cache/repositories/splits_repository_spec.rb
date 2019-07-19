@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'set'
 
 describe SplitIoClient::Cache::Repositories::SplitsRepository do
-  RSpec.shared_examples 'SplitsRepository specs' do |cache_adapter|
+  RSpec.shared_examples 'Splits Repository' do |cache_adapter|
     let(:adapter) { cache_adapter }
     let(:config) { SplitIoClient::SplitConfig.new(cache_adapter: adapter) }
     let(:repository) { described_class.new(config) }
@@ -106,10 +106,15 @@ describe SplitIoClient::Cache::Repositories::SplitsRepository do
     end
   end
 
-  it_behaves_like 'SplitsRepository specs', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
-    SplitIoClient::Cache::Adapters::MemoryAdapters::MapAdapter.new
-  )
-  it_behaves_like 'SplitsRepository specs', SplitIoClient::Cache::Adapters::RedisAdapter.new(
-    'redis://127.0.0.1:6379/0'
-  )
+  describe 'with Memory Adapter' do
+    it_behaves_like 'Splits Repository', SplitIoClient::Cache::Adapters::MemoryAdapter.new(
+      SplitIoClient::Cache::Adapters::MemoryAdapters::MapAdapter.new
+    )
+  end
+
+  describe 'with Redis Adapter' do
+    it_behaves_like 'Splits Repository', SplitIoClient::Cache::Adapters::RedisAdapter.new(
+      'redis://127.0.0.1:6379/0'
+    )
+  end
 end
