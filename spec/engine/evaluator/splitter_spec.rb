@@ -14,7 +14,7 @@ describe SplitIoClient::Splitter do
     end
   end
 
-  describe 'mumur3 algorithm with murmur3 sample data' do
+  describe 'using mumur3 algorithm' do
     it_behaves_like(
       'Splitter',
       File.expand_path(File.join(File.dirname(__FILE__), '../../test_data/hash/murmur3-sample-data-v2.csv')),
@@ -22,7 +22,7 @@ describe SplitIoClient::Splitter do
     )
   end
 
-  describe 'mumur3 algorithm with murmur3 non-alpha sample data' do
+  describe 'using mumur3 algorithm with non-alphanumeric sample data' do
     it_behaves_like(
       'Splitter',
       File.expand_path(File.join(File.dirname(__FILE__),
@@ -31,7 +31,7 @@ describe SplitIoClient::Splitter do
     )
   end
 
-  describe 'legacy algorithm with legacy sample data' do
+  describe 'using legacy algorithm' do
     it_behaves_like(
       'Splitter',
       File.expand_path(File.join(File.dirname(__FILE__), '../../test_data/hash/sample-data.csv')),
